@@ -6,190 +6,449 @@
   <title>Interest Calculator</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+/* ===== GLOBAL STYLES ===== */
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    header {
-      background: #2563eb;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #eff6ff, #f5f3ff, #eef2ff);
+  background-attachment: fixed;
+  color: #1e293b;
+  line-height: 1.6;
+}
 
-    header h1 {
-      margin: 0 0 10px;
-    }
+/* ===== HEADER ===== */
+header {
+  background: linear-gradient(120deg, #1d4ed8, #6d28d9, #2563eb);
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
+  color: white;
+  text-align: center;
+  padding: 40px 15px;
+  box-shadow: 0 8px 25px #2563eb35;
+}
 
-    nav {
-      background: #1e40af;
-      padding: 12px;
-      text-align: center;
-    }
+header h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 5vw, 42px);
+  letter-spacing: 1px;
+  animation: fadeDown 0.8s ease;
+}
 
-    nav button {
-      width: auto;
-      margin: 4px;
-      padding: 10px 16px;
-      background: white;
-      color: #1e40af;
-    }
+header p {
+  margin-bottom: 0;
+  opacity: 0.9;
+}
 
-    nav button:hover {
-      background: #dbeafe;
-    }
+/* ===== NAVIGATION ===== */
+nav {
+  background: #172554;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px #00000015;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 25px auto;
-      padding: 15px;
-    }
+nav button {
+  width: auto;
+  margin: 4px;
+  padding: 11px 20px;
+  background: transparent;
+  color: white;
+  border: 1px solid #64748b;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
 
-    .calculator, .history-box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px #00000012;
-      margin-bottom: 25px;
-    }
+nav button:hover {
+  background: white;
+  color: #1d4ed8;
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px #ffffff25;
+}
 
-    h2 {
-      color: #2563eb;
-    }
+/* ===== MAIN CONTAINER ===== */
+.container {
+  width: min(1000px, 94%);
+  margin: 35px auto;
+  padding: 10px;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+/* ===== CALCULATOR AND HISTORY BOXES ===== */
+.calculator,
+.history-box {
+  background: #ffffffed;
+  padding: 30px;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px #1e40af12;
+  margin-bottom: 30px;
+  transition: box-shadow 0.3s ease;
+  animation: fadeUp 0.7s ease;
+}
 
-    input, select {
-      width: 100%;
-      padding: 11px;
-      margin-top: 7px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 15px;
-    }
+.calculator:hover,
+.history-box:hover {
+  box-shadow: 0 15px 35px #1e40af20;
+}
 
-    button {
-      padding: 11px 16px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 6px;
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
+h2 {
+  color: #1d4ed8;
+  font-size: 26px;
+  margin-top: 0;
+}
 
-    button:hover {
-      background: #1d4ed8;
-    }
+h2::after {
+  content: "";
+  display: block;
+  width: 65px;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #2563eb, #9333ea);
+}
 
-    .danger {
-      background: #dc2626;
-    }
+/* ===== LABELS AND INPUTS ===== */
+label {
+  display: block;
+  margin-top: 18px;
+  font-weight: 600;
+  color: #334155;
+}
 
-    .danger:hover {
-      background: #b91c1c;
-    }
+input,
+select {
+  width: 100%;
+  padding: 13px;
+  margin-top: 7px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #1e293b;
+  font: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
 
-    #result {
-      display: none;
-      margin-top: 20px;
-      padding: 18px;
-      background: #dcfce7;
-      border-radius: 8px;
-      line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
+input:hover,
+select:hover {
+  border-color: #818cf8;
+  background: white;
+}
 
-    .types {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 15px;
-    }
+input:focus,
+select:focus {
+  border-color: #6366f1;
+  background: white;
+  box-shadow: 0 0 0 4px #6366f125;
+  transform: translateY(-1px);
+}
 
-    .card {
-      background: white;
-      padding: 18px;
-      border-radius: 10px;
-      border-left: 4px solid #2563eb;
-      box-shadow: 0 3px 8px #0000000a;
-    }
+/* ===== BUTTONS ===== */
+button {
+  padding: 12px 19px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2563eb, #6d28d9);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px #2563eb25;
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease,
+              filter 0.25s ease;
+}
 
-    .card h3 {
-      margin-top: 0;
-      color: #2563eb;
-    }
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px #2563eb35;
+  filter: brightness(1.08);
+}
 
-    .card p {
-      font-size: 14px;
-      line-height: 1.6;
-    }
+button:active {
+  transform: scale(0.97);
+}
 
-    .table-wrap {
-      overflow-x: auto;
-    }
+button:focus-visible {
+  outline: 3px solid #a5b4fc;
+  outline-offset: 3px;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      font-size: 14px;
-    }
+/* ===== DELETE BUTTON ===== */
+button.danger {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  box-shadow: 0 4px 10px #dc262625;
+}
 
-    th, td {
-      padding: 12px;
-      border: 1px solid #e2e8f0;
-      text-align: left;
-      white-space: nowrap;
-    }
+button.danger:hover {
+  box-shadow: 0 8px 18px #dc262640;
+}
 
-    th {
-      background: #dbeafe;
-      color: #1e40af;
-    }
+/* ===== CALCULATION RESULT ===== */
+#result {
+  display: none;
+  margin-top: 25px;
+  padding: 22px;
+  background: linear-gradient(135deg, #dcfce7, #ecfdf5);
+  color: #14532d;
+  border: 1px solid #86efac;
+  border-left: 5px solid #16a34a;
+  border-radius: 12px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+  box-shadow: 0 6px 20px #16a34a12;
+  animation: resultReveal 0.5s ease;
+}
 
-    tr:nth-child(even) {
-      background: #f8fafc;
-    }
+#result b {
+  color: #166534;
+}
 
-    .hidden {
-      display: none;
-    }
+/* ===== INTEREST TYPE CARDS ===== */
+.types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 20px;
+}
 
-    .note {
-      color: #64748b;
-      font-size: 13px;
-      line-height: 1.6;
-    }
+.card {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid #6366f1;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px #00000008;
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
 
-    footer {
-      text-align: center;
-      background: #1e293b;
-      color: white;
-      padding: 18px;
-      margin-top: 30px;
-    }
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #a855f7);
+  transition: left 0.4s ease;
+}
 
-    @media (max-width: 480px) {
-      .calculator, .history-box {
-        padding: 16px;
-      }
+.card:hover {
+  transform: translateY(-7px);
+  border-left-color: #9333ea;
+  box-shadow: 0 14px 28px #4f46e525;
+}
 
-      header h1 {
-        font-size: 25px;
-      }
-    }
+.card:hover::before {
+  left: 0;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #4f46e5;
+  transition: color 0.3s ease;
+}
+
+.card:hover h3 {
+  color: #9333ea;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #475569;
+}
+
+/* ===== HISTORY TABLE ===== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 13px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  color: #312e81;
+}
+
+tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #e0e7ff;
+}
+
+/* ===== NOTES AND VISIBILITY ===== */
+.note {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  background: linear-gradient(120deg, #0f172a, #312e81);
+  color: white;
+  padding: 22px;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gradientMove {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes resultReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 600px) {
+  header {
+    padding: 30px 12px;
+  }
+
+  header h1 {
+    font-size: 27px;
+  }
+
+  nav {
+    padding: 10px 5px;
+  }
+
+  nav button {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .container {
+    width: 96%;
+    margin: 20px auto;
+    padding: 5px;
+  }
+
+  .calculator,
+  .history-box {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .types {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  input,
+  select {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  #result {
+    padding: 15px;
+  }
+
+  footer {
+    padding: 18px 10px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+ 
+
   </style>
 </head>
 
