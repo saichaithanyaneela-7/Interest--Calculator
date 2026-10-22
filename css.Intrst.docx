@@ -1,0 +1,188 @@
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+    }
+
+    nav {
+      background: #1e40af;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav button {
+      width: auto;
+      margin: 4px;
+      padding: 10px 16px;
+      background: white;
+      color: #1e40af;
+    }
+
+    nav button:hover {
+      background: #dbeafe;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 25px auto;
+      padding: 15px;
+    }
+
+    .calculator, .history-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px #00000012;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      color: #2563eb;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 11px;
+      margin-top: 7px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      padding: 11px 16px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .danger {
+      background: #dc2626;
+    }
+
+    .danger:hover {
+      background: #b91c1c;
+    }
+
+    #result {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      background: #dcfce7;
+      border-radius: 8px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    .types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      border-left: 4px solid #2563eb;
+      box-shadow: 0 3px 8px #0000000a;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #2563eb;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .note {
+      color: #64748b;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      background: #1e293b;
+      color: white;
+      padding: 18px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 480px) {
+      .calculator, .history-box {
+        padding: 16px;
+      }
+
+      header h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
